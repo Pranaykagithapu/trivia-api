@@ -1,11 +1,17 @@
 import os
+from io import StringIO
+from pathlib import Path
+from dotenv import load_dotenv, find_dotenv
+
 from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_name = "trivia"
-database_path = "postgresql://{}/{}".format("localhost:5432", database_name)
-database_path = "postgresql://postgres:PranayNew@localhost:5432/trivia"
+load_dotenv()
+
+database_path = "postgresql://{}:{}/{}".format(
+    os.getenv("USER"), os.getenv("EMAIL"), os.getenv("database_name")
+)
 
 db = SQLAlchemy()
 
